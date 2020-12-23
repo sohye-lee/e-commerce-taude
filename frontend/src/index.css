@@ -1,0 +1,161 @@
+:root {
+  --Black: rgb(20,20,20);
+  --White: rgb(240,240,240);
+  --Smoke: rgb(230,230,230);
+  --Blue: rgb(38, 38, 245);
+  --Sky: rgb(46, 196, 255);
+  --Red: rgb(182, 2, 2);
+  --Pink: rgb(247, 36, 71);
+  --Gray: rgb(187, 187, 187);
+  --DarkGray: #3b3b3b;
+  --Orange: rgb(255, 173, 21);
+  --Lime: rgb(138, 255, 71);
+
+  --Border: 4px;
+  --Transition: all 350ms ease;
+  --MaxWidth: 1480px;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@200;300;400&family=Open+Sans&family=Poppins:wght@100;200;400;600;700&family=Raleway&family=Roboto+Slab&display=swap');
+
+html {
+  font-size: 62%;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  width: 100vw;
+  min-height: 100vh;
+  font-size: 1.6rem;
+  background-image: linear-gradient(135deg, #ffffff 44.44%, #545454 44.44%, #545454 50%, #ffffff 50%, #ffffff 94.44%, #545454 94.44%, #545454 100%);
+  background-size: 12.73px 12.73px; 
+
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1 {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+}
+
+.grid-container {
+  width: 100vw;
+  height: 100%;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  margin: 1rem auto;
+}
+
+.row.center {
+  justify-content: center;
+}
+
+.row.top {
+  align-items: top;
+}
+
+a, a > * {
+  text-decoration: none;
+  transition: all 350ms ease;
+}
+
+a:hover, a:hover>* {
+  color: var(--Orange);
+}
+
+button.btn {
+  outline: none;
+  background-color: var(--Orange);
+  color: var(--Black);
+  border: 2px solid var(--Orange);
+  width: 100%;
+  margin: 2rem 0;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-family: 'Poppins', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 1.7rem;
+  font-weight: 400;
+  transition: all 350ms ease;
+  text-transform: uppercase;
+}
+
+button.btn:hover {
+  border: 2px solid var(--Lime);
+
+}
+
+button.btn.small {
+  margin: .5rem 0;
+  padding: .8rem 0;
+  max-width: 90px;
+  min-width: 60px;
+  font-size: 1.2rem;
+  background-color: var(--Black);
+  color: var(--White);
+  transition: all 350ms ease;
+  border: 2px solid var(--Black);
+}
+
+button.btn.small:hover {
+  border: 2px solid var(--Lime);
+
+}
+
+button.btn:disabled {
+  border: 2px solid var(--Black);
+  background-color: var(--Gray);
+  cursor: default;
+}
+
+.error {
+  color: #a02020;
+}
+
+.alert {
+  padding: 1rem;
+  border: 0.1rem solid transparent;
+  border: 0.5rem;
+}
+
+.alert-info {
+  color: var(--Blue);
+  background-color: var(--White);
+}
+
+.alert-error {
+  color: var(--Red);
+  background-color: var(--White);
+}
+
+.screen__goBack {
+  width: 90%;
+  margin: 110px auto 20px auto;
+}
+
+.screen__goBack span {
+  color: var(--White);
+  background-color: var(--Black);
+  padding: 3px;
+}
+
+.screen__goBack a:hover {
+  color: var(--Pink);
+}
+
+.rating__stars > span> i  {
+  color: gold;
+}

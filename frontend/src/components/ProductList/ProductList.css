@@ -1,0 +1,8 @@
+.productList__container {
+    grid-area: main;
+    width: 90%;
+    margin: 120px auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    grid-gap: 1rem;
+}
