@@ -118,17 +118,13 @@ const data = {
             username: 'chloe',
             password: bcrypt.hashSync('8458',8),
             email: 'sohyellcofficial@gmail.com',
-            firstname: 'Chloe',
-            lastname: 'Kim',
             isAdmin: false,
             isSeller: true,
         },
         {
             username: 'jjay',
             password: bcrypt.hashSync('8458',8),
-            email: 'jjay@gmail.com',
-            firstname: 'Ethan',
-            lastname: 'Kim',
+            email: 'dragonriderkim0419gmail.com',
             isAdmin: false,
             isSeller: true,
         }
