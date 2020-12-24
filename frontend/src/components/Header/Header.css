@@ -28,8 +28,37 @@
     font-size: 2.1rem;
 }
 
+.header__right {
+    min-width: 20%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
 .header__cart, .header__login {
     margin-left: 30px;
+}
+
+.header__dropdown {
+    display: inline-block;
+    position: relative;
+}
+
+.dropdown-content {
+    position: absolute;
+    display: none;
+    min-width: 12rem;
+    right: 0;
+    background-color: var(--Black);
+    box-sizing: border-box;
+    padding: 1rem;
+    margin: 0;
+    border-radius: var(--Border);
+    text-align: right;
+}
+
+.header__dropdown:hover > .dropdown-content {
+    display: block;
 }
 
 .cart__qty {

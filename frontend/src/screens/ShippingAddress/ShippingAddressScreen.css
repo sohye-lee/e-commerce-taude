@@ -1,0 +1,24 @@
+.shipping__container {
+    display: flex;
+    justify-content: center;
+    width: 100vw;
+    margin: 120px 0;
+}
+
+.shipping__content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.shipping__form {
+    min-height: 650px;
+    margin-top: 30px;
+}
+
+.shipping__form > div > input {
+    text-transform: none !important;
+    background: transparent !important;
+}

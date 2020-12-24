@@ -5,7 +5,7 @@ import { detailsProduct } from '../../actions/productActions';
 import LoadingBox from '../../components/LoadingBox';
 import MessageBox from '../../components/MessageBox';
 import Rating from '../../components/Rating';
-import ReactStars from 'react-rating-stars-component';
+// import ReactStars from 'react-rating-stars-component';
 import './ProductScreen.css'
 
 export default function ProductScreen(props) {

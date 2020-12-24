@@ -1,0 +1,40 @@
+.checkout__steps {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+}
+
+.checkout__steps > div {
+    border-top: 0.5rem solid var(--Gray);
+    color: var(--White);
+    flex: 1;
+    padding: 1rem;
+    text-align: center;
+    font-weight: 600;
+}
+
+.checkout__steps > div > h3 {
+    width: 15rem;
+    margin: 0 auto;
+    font-size: 1.6rem;
+    background-color: var(--Gray);
+    padding: 0.4rem 0;
+    font-weight: 300;
+}
+
+@media all and (max-width: 1024px) {
+    .checkout__steps > div > h3 {
+        width: 9rem;
+        font-size: 1.2rem;
+    } 
+}
+
+.checkout__steps > div.active {
+    border-top-color: var(--Orange);
+}
+
+.checkout__steps > div.active > h3 {
+    background-color: var(--Orange);
+    color: var(--DarkGray);
+}

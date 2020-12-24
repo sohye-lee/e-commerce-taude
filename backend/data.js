@@ -106,27 +106,27 @@ const data = {
     ],
     users: [
         {
-            username: 'sohyelee',
+            name: 'sohyelee',
             password: bcrypt.hashSync('8458',8),
             email: 'sohyelee@gmail.com',
             firstname: 'So Hye',
             lastname: 'Lee',
             isAdmin: true,
-            isSeller: false,    
+            // isSeller: false,    
         },
         {
-            username: 'chloe',
+            name: 'chloe',
             password: bcrypt.hashSync('8458',8),
             email: 'sohyellcofficial@gmail.com',
-            isAdmin: false,
-            isSeller: true,
+            isAdmin: true,
+            // isSeller: true,
         },
         {
-            username: 'jjay',
+            name: 'jjay',
             password: bcrypt.hashSync('8458',8),
             email: 'dragonriderkim0419gmail.com',
             isAdmin: false,
-            isSeller: true,
+            // isSeller: true,
         }
     ]
 };

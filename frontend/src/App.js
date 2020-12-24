@@ -5,15 +5,21 @@ import Footer from './components/Footer/FooterComponent';
 import HomeScreen from './screens/Home/HomeScreen';
 import ProductScreen from './screens/Product/ProductScreen';
 import CartScreen from './screens/Cart/CartScreen';
+import SigninScreen from './screens/Signin/SigninScreen';
+import RegisterScreen from './screens/RegisterScreen/RegisterScreen';
+import ShippingAddressScreen from './screens/ShippingAddress/ShippingAddressScreen';
 
 function App() {
 
   return (
-    <BrowserRouter>
+    <BrowserRouter> 
       <Header />
-      <Route path="/cart/:id?" component={CartScreen}></Route>
-      <Route path="/product/:id" component={ProductScreen}></Route>
-      <Route path="/" component={HomeScreen} exact></Route>
+      <Route path="/cart/:id?" component={CartScreen} />
+      <Route path="/product/:id" component={ProductScreen} exact />
+      <Route path="/signin" component={SigninScreen} />
+      <Route path="/register" component={RegisterScreen} />
+      <Route path="/shipping" component={ShippingAddressScreen} />
+      <Route path="/" component={HomeScreen} exact />
       <Footer />
     </BrowserRouter>
   );

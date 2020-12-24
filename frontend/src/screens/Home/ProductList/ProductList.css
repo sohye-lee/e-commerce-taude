@@ -1,5 +1,4 @@
 .productList__container {
-    grid-area: main;
     width: 90%;
     margin: 120px auto;
     display: grid;
