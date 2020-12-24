@@ -2,7 +2,7 @@
 
 .cart__container {
     width: 100vw;
-    min-height: 100vh;
+    padding: 120px 0 0 0;
 }
 
 .cart__content {

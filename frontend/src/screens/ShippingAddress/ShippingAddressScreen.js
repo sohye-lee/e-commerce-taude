@@ -10,12 +10,12 @@ export default function ShippingAddressScreen(props) {
     const cart = useSelector(state => state.cart);
     const { shippingAddress } = cart;
 
-    const [ fullname, setFullname ] = useState(shippingAddress.fullname);
-    const [ street, setStreet ] = useState(shippingAddress.street);
-    const [ city, setCity ] = useState(shippingAddress.city);
-    const [ state, setState ] = useState(shippingAddress.state);
-    const [ zip, setZip ] = useState(shippingAddress.zip);
-    const [ country, setCountry ] = useState(shippingAddress.country);
+    const [ fullname, setFullname ] = useState(shippingAddress.fullname || '');
+    const [ street, setStreet ] = useState(shippingAddress.street || '');
+    const [ city, setCity ] = useState(shippingAddress.city || '');
+    const [ stateName, setStateName ] = useState(shippingAddress.stateName || '');
+    const [ zip, setZip ] = useState(shippingAddress.zip || '');
+    const [ country, setCountry ] = useState(shippingAddress.country || '');
 
     if (!userInfo) {
         props.history.push('/signin');
@@ -24,7 +24,7 @@ export default function ShippingAddressScreen(props) {
     const dispatch = useDispatch();
         const handleSubmit = (e) => {
             e.preventDefault();
-            dispatch(saveShippingAddress({ fullname, street, city, state, zip, country }));
+            dispatch(saveShippingAddress({ fullname, street, city, stateName, zip, country }));
             props.history.push('/payment');
     };
 
@@ -69,9 +69,9 @@ export default function ShippingAddressScreen(props) {
                             type="text" 
                             id="state" 
                             placeholder="state" 
-                            value={state}
+                            value={stateName}
                             required 
-                            onChange={e=> setState(e.target.value)} 
+                            onChange={e=> setStateName(e.target.value)} 
                         />
                     </div>
                     <div className="row">
