@@ -52,5 +52,5 @@ export const register = (name, email, password) => async(dispatch) => {
                 : error.message,
         })
     }
-}
+};
 
