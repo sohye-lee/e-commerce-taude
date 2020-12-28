@@ -65,7 +65,7 @@ export default function PlaceOrderScreen(props) {
                         </div>
                         {cartItems.length > 0
                         ? cartItems.map(item => (
-                                <div className="order__item" key={item._id}>
+                                <div className="order__item" key={item.product}>
                                     <Link to={`/product/${item.product}`}><img className="item__img" src={item.image} alt={item.name}/></Link>
                                     <h4 className="order__detail item__name"><Link to={`/product/${item.product}`}>{item.name}</Link></h4>
                                     <h4 className="order__detail item__price">${item.price}</h4>

@@ -122,7 +122,11 @@ button.btn:disabled {
 }
 
 .error {
-  color: #a02020;
+  color: var(--Red);
+}
+
+.success {
+  color: var(--Lime);
 }
 
 .alert {
@@ -133,12 +137,12 @@ button.btn:disabled {
 
 .alert-info {
   color: var(--Blue);
-  background-color: var(--White);
+  background-color: var(--Gray);
 }
 
 .alert-error {
   color: var(--Red);
-  background-color: var(--White);
+  background-color: var(--Gray);
 }
 
 .screen__goBack {

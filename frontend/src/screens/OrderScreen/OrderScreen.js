@@ -1,49 +1,75 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import {  useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import CheckoutSteps from '../../components/CheckoutSteps/CheckoutSteps';
+import Axios from 'axios';
+import { PayPalButton } from 'react-paypal-button-v2';
+import { detailsOrder } from '../../actions/orderActions';
+import LoadingBox from '../../components/LoadingBox';
+import MessageBox from '../../components/MessageBox';
 import './OrderScreen.css';
 
 export default function OrderScreen(props) {
-    const userSignin = useSelector(state => state.userSignin);
-    const { userInfo } = userSignin;
+    const orderId = props.match.params.id;
+    const [sdkReady, setSdkReady] = useState(false);
+    const dispatch = useDispatch();
+    const orderDetails = useSelector(state => state.orderDetails);
+    const { order, loading, error } = orderDetails;
 
+    const handleSuccessPayment = () => {
 
-    const cart = useSelector(state => state.cart);
-    const { shippingAddress, cartItems, paymentMethod } = cart;
+    }
     
-    if (!shippingAddress) {
-        props.history.push('/shipping');
-    }
-    if (!userInfo) {
-        props.history.push('/signin');
-    }
+    useEffect(() => {
+        const addPayPalScript = async() => {
+            const { data } = await Axios.get('/api/config/paypal');
+            const script = document.createElement('script');
+            script.type = "text/javascript";
+            script.src = `http://www.paypal.com/sdk/js?client-id=${data}`;
+            script.async = true;
+            script.onload = () => {
+                setSdkReady(true);
+            };
+            document.body.appendChild(script);
+        };
 
-    const toPrice = (num) => Number(num.toFixed(2));
-    cart.itemsPrice = toPrice(cartItems.reduce((a,b) => a + b.qty*b.price, 0));
-    cart.shippingFee = cart.itemsPrice > 100 ? toPrice(0) : toPrice(10.90);
-    cart.tax = toPrice(cart.itemsPrice * 0.09);
+        if(!order) {
+            dispatch(detailsOrder(orderId));
+        } else {
+            if(!order.isPaid) {
+                if(!window.paypal) {
+                    addPayPalScript();
+                } else {
+                    setSdkReady(true);
+                }
+            }
+        }
+    }, [dispatch, orderId, order, sdkReady]);
 
-    const handlePlaceOrder = () => {
-        
-    }
+   
 
-    return (
+    return  loading? (<LoadingBox></LoadingBox>)
+        : error? (<MessageBox variant="error">{error}</MessageBox>)
+        : (
         <div className="order__container">
-            <CheckoutSteps step1 step2 step3 step4 />
+      <Link to="/"><div className="screen__goBack"><span><i className="fa fa-angle-left" /> BACK TO MAIN</span></div></Link>
+
+            <h1 className="order__details__title"> Order {order._id}</h1>
             <div className="order__content row top">
                 <div className="order__left">
                     <div className="order__box">
                         <h3 className="order__title">Shipping</h3>
-                        <h4 className="order__detail"><span className="bold">Name / </span> {shippingAddress.fullname}</h4>
+                        <h4 className="order__detail"><span className="bold">Name / </span> {order.shippingAddress.fullname}</h4>
                         <h4 className="order__detail">
                             <span className="bold">Address / </span>
-                            {`${shippingAddress.street}, ${shippingAddress.city}, ${shippingAddress.stateName} ${shippingAddress.zip}, ${shippingAddress.country}`}
+                            {`${order.shippingAddress.street}, ${order.shippingAddress.city}, ${order.shippingAddress.stateName} ${order.shippingAddress.zip}, ${order.shippingAddress.country}`}
                         </h4>
+                        {order.isDelivered? (<MessageBox variant="info">Delivered at {order.deliveredAt}</MessageBox>) : (<MessageBox variant="error">Not Delivered</MessageBox>)}
                     </div>
                     <div className="order__box">
                         <h3 className="order__title">Payment</h3>
-                        <h4 className="order__detail"><span className="bold">Paid by </span>{paymentMethod}</h4>
+                        <h4 className="order__detail"><span className="bold">Paid by </span>{order.paymentMethod}</h4>
+                        {order.isPaid? (<MessageBox variant="info">Paid at {order.paidAt}</MessageBox>) : (<MessageBox variant="error">Not Paid</MessageBox>)}
+
                     </div>
                     <div className="order__box">
                         <h3 className="order__title">Items</h3>
@@ -54,8 +80,8 @@ export default function OrderScreen(props) {
                             <div className="item__qty">QTY</div>
                             <div className="item__subtotal">SUBTOTAL</div>
                         </div>
-                        {cartItems.length > 0
-                        ? cartItems.map(item => (
+                        {order.orderItems.length > 0
+                        ? order.orderItems.map(item => (
                                 <div className="order__item" key={item._id}>
                                     <Link to={`/product/${item.product}`}><img className="item__img" src={item.image} alt={item.name}/></Link>
                                     <h4 className="order__detail item__name"><Link to={`/product/${item.product}`}>{item.name}</Link></h4>
@@ -72,24 +98,33 @@ export default function OrderScreen(props) {
                         <h3 className="order__title">Order summary</h3>
                         <div className="order__detail row">
                             <span>Items</span>
-                            <span>${cart.itemsPrice.toFixed(2)}</span>
+                            <span>${order.itemsPrice}</span>
                         </div>
                         <div className="order__detail row">
                             <span>Shipping</span>
-                            <span>${cart.shippingFee.toFixed(2)}</span>
+                            <span>${order.shippingFee}</span>
                         </div>
                         <div className="order__detail row">
                             <span>Tax</span>
-                            <span>${cart.tax.toFixed(2)}</span>
+                            <span>${order.tax}</span>
                         </div>
                         <div className="order__detail row bold">
                             <span>Total</span>
-                            <span>${(cart.itemsPrice + cart.shippingFee + cart.tax).toFixed(2)}</span>
+                            <span>${order.total}</span>
                         </div>
-                        <button className="btn" onClick={handlePlaceOrder} disabled={cartItems.length === 0}>Place Order</button>
+                        {
+                            !order.isPaid && (
+                                <div>
+                                    {!sdkReady ? (<LoadingBox />):
+                                    (<PayPalButton amount={order.total} onSuccess={handleSuccessPayment} />)
+                                    }
+                                </div>
+                            )
+                        }
                     </div>
                 </div>
             </div>
+             
         </div>
     )
 };
