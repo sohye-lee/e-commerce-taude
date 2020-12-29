@@ -5,7 +5,13 @@ import {
     ORDER_CREATE_FAIL,
     ORDER_DETAILS_REQUEST,
     ORDER_DETAILS_SUCCESS,
-    ORDER_DETAILS_FAIL
+    ORDER_DETAILS_FAIL,
+    ORDER_PAY_REQUEST,
+    ORDER_PAY_SUCCESS,
+    ORDER_PAY_FAIL,
+    ORDER_HISTORY_REQUEST,
+    ORDER_HISTORY_FAIL,
+    ORDER_HISTORY_SUCCESS
 } from '../constants/orderConstants';
 import { 
     CART_EMPTY
@@ -51,5 +57,46 @@ export const detailsOrder = (orderId) => async(dispatch, getState) => {
             ? error.response.data.message
             : error.message,
       });
+    }
+};
+
+export const payOrder = (order, paymentResult) => async(dispatch, getState) => {
+    dispatch({ type: ORDER_PAY_REQUEST, payload: { order, paymentResult }});
+    const { userSignin: { userInfo }} = getState();
+    try {
+        const { data } = Axios.put(`/api/orders/${order._id}/pay`, paymentResult, {
+            headers: { Authorization: `Bearer ${ userInfo.token }`},
+        });
+        dispatch({ type: ORDER_PAY_SUCCESS, payload: data });
+    } catch (error) {
+        dispatch({
+            type: ORDER_PAY_FAIL,
+            payload:
+              error.response && error.response.data.message
+                ? error.response.data.message
+                : error.message,
+        })
+    }
+};
+
+export const listOrderHistory = () => async (dispatch, getState) => {
+    dispatch({ type: ORDER_HISTORY_REQUEST });
+    const { userSignin : { userInfo }} = getState();
+
+    try {
+        const { data } = await Axios.get('/api/orders/history', {
+            headers: {
+                Authorization: `Bearer ${userInfo.token}`
+            }
+        });
+        dispatch({ type: ORDER_HISTORY_SUCCESS, payload: data });
+    } catch (error) {
+        dispatch({
+            type: ORDER_HISTORY_FAIL,
+            payload:
+              error.response && error.response.data.message
+                ? error.response.data.message
+                : error.message,
+        })
     }
 };

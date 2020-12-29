@@ -44,20 +44,24 @@
     position: relative;
 }
 
-.dropdown-content {
+.dropdown__content {
     position: absolute;
     display: none;
-    min-width: 12rem;
+    min-width: 15rem;
     right: 0;
     background-color: var(--Black);
     box-sizing: border-box;
-    padding: 1rem;
+    padding: 2rem 1rem 1rem 0;
     margin: 0;
     border-radius: var(--Border);
     text-align: right;
 }
 
-.header__dropdown:hover > .dropdown-content {
+.dropdown__content li {
+    margin: 1rem 0;
+}
+
+.header__dropdown:hover > .dropdown__content {
     display: block;
 }
 

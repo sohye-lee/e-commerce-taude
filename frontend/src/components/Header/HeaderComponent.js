@@ -39,10 +39,17 @@ const Header = () => {
                         ? (
                         <div className="header__dropdown">
                             <Link to="#" className="header__login" ><i className="fa fa-unlock-alt" style={{marginRight: '8px'}}/> {userInfo.name} <i className="fa fa-caret-down"/></Link>
-                            <ul className="dropdown-content" >
-                                <Link to="#signout" onClick={handleSignOut}>
-                                    logout
-                                </Link>
+                            <ul className="dropdown__content" >
+                                <li>
+                                    <Link to="/orderhistory">
+                                        Order History
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link to="#signout" onClick={handleSignOut}>
+                                        logout
+                                    </Link>
+                                </li>
                             </ul>
                         </div>
                         )

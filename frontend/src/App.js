@@ -6,11 +6,12 @@ import HomeScreen from './screens/Home/HomeScreen';
 import ProductScreen from './screens/Product/ProductScreen';
 import CartScreen from './screens/Cart/CartScreen';
 import SigninScreen from './screens/Signin/SigninScreen';
-import RegisterScreen from './screens/RegisterScreen/RegisterScreen';
+import RegisterScreen from './screens/Register/RegisterScreen';
 import ShippingAddressScreen from './screens/ShippingAddress/ShippingAddressScreen';
 import PaymentScreen from './screens/Payment/PaymentScreen';
-import PlaceOrderScreen from './screens/PlaceOrderScreen/PlaceOrderScreen';
-import OrderScreen from "./screens/OrderScreen/OrderScreen";
+import PlaceOrderScreen from './screens/PlaceOrder/PlaceOrderScreen';
+import OrderScreen from "./screens/Order/OrderScreen";
+import OrderHistoryScreen from './screens/OrderHistory/OrderHistoryScreen';
 
 function App() {
 
@@ -25,6 +26,7 @@ function App() {
       <Route path="/payment" component={PaymentScreen} />
       <Route path="/placeorder" component={PlaceOrderScreen} />
       <Route path="/order/:id" component={OrderScreen} />
+      <Route path="/orderhistory" component={OrderHistoryScreen} />
       <Route path="/" component={HomeScreen} exact />
       <Footer />
     </BrowserRouter>
