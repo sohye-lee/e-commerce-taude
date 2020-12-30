@@ -12,9 +12,10 @@ import {
   productListReducer,
 } from './reducers/productReducers';
 import { 
-  userProfileReducer,
+  userGetProfileReducer,
   userRegisterReducer, 
-  userSinginReducer 
+  userSinginReducer, 
+  userUpdateProfileReducer
 } from './reducers/userReducers'
 
 const initialState = {
@@ -35,16 +36,17 @@ const initialState = {
 };
 
 const reducer = combineReducers({
-  productList: productListReducer,
-  productDetails: productDetailsReducer,
-  cart: cartReducer,
-  userSignin: userSinginReducer,
-  userRegister: userRegisterReducer,
-  userProfile: userProfileReducer,
-  orderCreate: orderCreateReducer,
-  orderDetails: orderDetailsReducer,
-  orderPay: orderPayReducer,
-  orderHistory: orderHistoryReducer
+    productList: productListReducer,
+    productDetails: productDetailsReducer,
+    cart: cartReducer,
+    userSignin: userSinginReducer,
+    userRegister: userRegisterReducer,
+    userProfile: userGetProfileReducer,
+    userUpdatedProfile: userUpdateProfileReducer,
+    orderCreate: orderCreateReducer,
+    orderDetails: orderDetailsReducer,
+    orderPay: orderPayReducer,
+    orderHistory: orderHistoryReducer
 });
 
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

@@ -13,6 +13,7 @@ import PlaceOrderScreen from './screens/PlaceOrder/PlaceOrderScreen';
 import OrderScreen from "./screens/Order/OrderScreen";
 import OrderHistoryScreen from './screens/OrderHistory/OrderHistoryScreen';
 import ProfileScreen from './screens/Profile/ProfileScreen';
+import PrivateRoute from './components/PrivateRoute';
 
 function App() {
 
@@ -23,7 +24,7 @@ function App() {
       <Route path="/product/:id" component={ProductScreen} exact />
       <Route path="/signin" component={SigninScreen} />
       <Route path="/register" component={RegisterScreen} />
-      <Route path="/profile" component={ProfileScreen} />
+      <PrivateRoute path="/profile" component={ProfileScreen} />
       <Route path="/shipping" component={ShippingAddressScreen} />
       <Route path="/payment" component={PaymentScreen} />
       <Route path="/placeorder" component={PlaceOrderScreen} />

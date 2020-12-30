@@ -3,13 +3,16 @@
   --White: rgb(240,240,240);
   --Smoke: rgb(230,230,230);
   --Blue: rgb(38, 38, 245);
-  --Sky: rgb(46, 196, 255);
+  --Sky: rgb(120, 215, 253);
   --Red: rgb(182, 2, 2);
   --Pink: rgb(247, 36, 71);
+  --LightPink: rgb(250, 223, 227);
   --Gray: rgb(187, 187, 187);
   --DarkGray: #3b3b3b;
   --Orange: rgb(255, 173, 21);
   --Lime: rgb(138, 255, 71);
+  --Green: rgb(3, 56, 3);
+  --LightGreen: rgb(209, 255, 209);
 
   --Border: 4px;
   --Transition: all 350ms ease;
@@ -137,12 +140,17 @@ button.btn:disabled {
 
 .alert-info {
   color: var(--Blue);
-  background-color: var(--Gray);
+  background-color: var(--Sky);
 }
 
 .alert-error {
   color: var(--Red);
-  background-color: var(--Gray);
+  background-color: var(--LightPink);
+}
+
+.alert-success {
+  color: var(--Green);
+  background-color: var(--LightGreen);
 }
 
 .screen__goBack {
