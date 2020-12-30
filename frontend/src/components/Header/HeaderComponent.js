@@ -41,6 +41,11 @@ const Header = () => {
                             <Link to="#" className="header__login" ><i className="fa fa-unlock-alt" style={{marginRight: '8px'}}/> {userInfo.name} <i className="fa fa-caret-down"/></Link>
                             <ul className="dropdown__content" >
                                 <li>
+                                    <Link to="/profile">
+                                        Profile
+                                    </Link>
+                                </li>
+                                <li>
                                     <Link to="/orderhistory">
                                         Order History
                                     </Link>
