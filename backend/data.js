@@ -3,7 +3,6 @@ import bcrypt from 'bcryptjs';
 const data = {
     products: [
         {
-            sellerId: 0,
             brand: "taude",
             name: "Joy",
             category: "tote bag",
@@ -17,7 +16,6 @@ const data = {
             countInStock: 20
         },
         {
-            sellerId: 0,
             brand: "taude",
             name: "Black Dot",
             category: "tote bag",
@@ -31,7 +29,6 @@ const data = {
             countInStock: 20
         },
         {
-            sellerId: 0,
             brand: "taude",
             name: "Cute Box",
             category: "tote bag",
@@ -45,7 +42,6 @@ const data = {
             countInStock: 0
         },
         {
-            sellerId: 0,
             brand: "taude",
             name: "White Musk",
             category: "tote bag",
@@ -59,7 +55,6 @@ const data = {
             countInStock: 1
         },
         {
-            sellerId: 2,
             brand: "taude",
             name: "Break Silence",
             category: "tote bag",
@@ -73,7 +68,6 @@ const data = {
             countInStock: 10
         },
         {
-            sellerId: 2,
             brand: "taude",
             name: "Beige Dream",
             category: "tote bag",

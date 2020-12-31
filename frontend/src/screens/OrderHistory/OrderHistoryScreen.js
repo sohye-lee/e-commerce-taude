@@ -22,7 +22,7 @@ export default function OrderHistoryScreen(props) {
                 error? <MessageBox variant="error">{error}</MessageBox>
                 : 
                 (
-                    <table className='order__table'>
+                    <table className='table'>
                         <thead>
                             <tr>
                                 <th>ID</th>
@@ -41,14 +41,16 @@ export default function OrderHistoryScreen(props) {
                                     <td>{order.total.toFixed(2)}</td>
                                     <td>{order.isPaid? order.paidAt.substring(0,10):'NO'}</td>
                                     <td>{order.isDelivered? order.deliveredAt.substring(0,10):'NO'}</td>
-                                    <td className="table__btn">
-                                        <button 
-                                            type="button"
-                                            className="order__smallbtn btn"
-                                            onClick={() => props.history.push(`/order/${order._id}`)}
-                                        >
-                                            Details
-                                        </button>
+                                    <td>
+                                        <div className="table__btn">
+                                            <button 
+                                                type="button"
+                                                className="btn smallbtn"
+                                                onClick={() => props.history.push(`/order/${order._id}`)}
+                                            >
+                                                Details
+                                            </button>
+                                        </div>
                                     </td>
                                 </tr>
                             ))}

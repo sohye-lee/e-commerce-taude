@@ -60,6 +60,35 @@ const Header = () => {
                         )
                         :(<Link to="/signin" className="header__login"><i className="fa fa-lock" style={{marginRight: '8px'}}/> login</Link>)
                     }
+                    {
+                        userInfo && userInfo.isAdmin && (
+                            <div className="header__dropdown">
+                            <Link to="#admin" className="header__login" ><i className="fa fa-line-chart" style={{marginRight: '8px'}}/>Admin<i className="fa fa-caret-down"/></Link>
+                            <ul className="dropdown__content" >
+                                <li>
+                                    <Link to="/dashboard">
+                                        Dashboard
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link to="/productlist">
+                                        Products
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link to="/orderlist">
+                                        Orders
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link to="/userlist">
+                                        Users
+                                    </Link>
+                                </li>
+                            </ul>
+                        </div>
+                        )
+                    }
                     
                 </div>
             </div>

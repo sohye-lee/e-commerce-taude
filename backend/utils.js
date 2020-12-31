@@ -21,7 +21,7 @@ export const isAuth = (req, res, next) => {
         const token = authorization.slice(7, authorization.length); //Sohyel XXXXX
         jwt.verify(token, process.env.JWT_SECRET || 'somethingsecret', (err, decode) => {
             if(err) {
-                req.status(401).send({ message: 'Invalid Token' });
+                res.status(401).send({ message: 'Invalid Token' });
             } else {
                 req.user = decode;
                 next();
@@ -30,4 +30,12 @@ export const isAuth = (req, res, next) => {
     } else {
         req.status(401).send({ message: "No Token"});
     }
-}
+};
+
+export const isAdmin = (req, res, next) => {
+    if(req.user && req.user.isAdmin) {
+        next();
+    } else {
+        res.status(401).send({ message: 'Invalid' });
+    }
+};
