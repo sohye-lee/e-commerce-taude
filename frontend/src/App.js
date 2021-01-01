@@ -15,26 +15,30 @@ import OrderHistoryScreen from './screens/OrderHistory/OrderHistoryScreen';
 import ProfileScreen from './screens/Profile/ProfileScreen';
 import PrivateRoute from './components/PrivateRoute';
 import AdminRoute from './components/AdminRoute';
-import ProductListScreen from './screens/ProductList/ProductListScreen';
+import AdminProductListScreen from './screens/AdminProductList/AdminProductListScreen';
+import AdminProductUpdateScreen from './screens/AdminProductUpdate/AdminProductUpdateScreen';
 
 function App() {
 
   return (
-    <BrowserRouter> 
-      <Header />
-      <Route path="/cart/:id?" component={CartScreen} />
-      <Route path="/product/:id" component={ProductScreen} exact />
-      <Route path="/signin" component={SigninScreen} />
-      <Route path="/register" component={RegisterScreen} />
-      <PrivateRoute path="/profile" component={ProfileScreen} />
-      <Route path="/shipping" component={ShippingAddressScreen} />
-      <Route path="/payment" component={PaymentScreen} />
-      <Route path="/placeorder" component={PlaceOrderScreen} />
-      <Route path="/order/:id" component={OrderScreen} />
-      <Route path="/orderhistory" component={OrderHistoryScreen} />
-      <AdminRoute path="/productlist" component={ProductListScreen} />
-      <Route path="/" component={HomeScreen} exact />
-      <Footer />
+    <BrowserRouter>
+      <div className="main__container">
+        <Header />
+        <Route path="/cart/:id?" component={CartScreen} />
+        <Route path="/product/:id" component={ProductScreen} exact />
+        <Route path="/product/:id/edit" component={AdminProductUpdateScreen} />
+        <Route path="/signin" component={SigninScreen} />
+        <Route path="/register" component={RegisterScreen} />
+        <PrivateRoute path="/profile" component={ProfileScreen} />
+        <Route path="/shipping" component={ShippingAddressScreen} />
+        <Route path="/payment" component={PaymentScreen} />
+        <Route path="/placeorder" component={PlaceOrderScreen} />
+        <Route path="/order/:id" component={OrderScreen} />
+        <Route path="/orderhistory" component={OrderHistoryScreen} />
+        <AdminRoute path="/productlist" component={AdminProductListScreen} />
+        <Route path="/" component={HomeScreen} exact />
+        <Footer />
+      </div> 
     </BrowserRouter>
   );
 }

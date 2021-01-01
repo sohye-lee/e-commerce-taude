@@ -26,7 +26,7 @@ export default function ProductScreen(props) {
   const [ showImageIndex, setShowImageIndex ] = useState(0);
  
   return (
-    <div className="info__container">
+    <div className="info__container container">
       <Link to="/"><div className="screen__goBack"><span><i className="fa fa-angle-left" /> BACK TO MAIN</span></div></Link>
       {loading ? (
         <LoadingBox></LoadingBox>

@@ -53,9 +53,8 @@ export default function OrderScreen(props) {
     return  loading? (<LoadingBox></LoadingBox>)
         : error? (<MessageBox variant="error">{error}</MessageBox>)
         : (
-        <div className="order__container">
-      <Link to="/"><div className="screen__goBack"><span><i className="fa fa-angle-left" /> BACK TO MAIN</span></div></Link>
-
+        <div className="order__container container">
+            <Link to="/"><div className="screen__goBack"><span><i className="fa fa-angle-left" /> BACK TO MAIN</span></div></Link>
             <h1 className="order__details__title"> Order {order._id}</h1>
             <div className="order__content row top">
                 <div className="order__left">

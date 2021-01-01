@@ -4,7 +4,7 @@ import { createProduct, listProducts } from '../../actions/productActions';
 import LoadingBox from '../../components/LoadingBox';
 import MessageBox from '../../components/MessageBox';
 import { PRODUCT_CREATE_RESET } from '../../constants/productConstants';
-import './ProductList.css';
+import './AdminProductList.css';
 
 export default function ProductListScreen(props) {
     const productList = useSelector(state => state.productList);
@@ -25,7 +25,7 @@ export default function ProductListScreen(props) {
             props.history.push(`/product/${createdProduct._id}/edit`);
         }
         dispatch(listProducts());
-    },[dispatch, createdProduct, successCreate, props.history]);
+    }, [dispatch, createdProduct, successCreate, props.history]);
 
     const handleDelete = () => {
         
@@ -36,7 +36,7 @@ export default function ProductListScreen(props) {
     };
 
     return (
-        <div className="admin__container">
+        <div className="admin__container container">
             <div className="admin__content">
                 <div className="admin__header row">
                     <h1 className="admin__title">Products</h1>

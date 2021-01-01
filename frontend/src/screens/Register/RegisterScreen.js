@@ -7,7 +7,6 @@ import MessageBox from '../../components/MessageBox';
 import './RegisterScreen.css';
 
 export default function RegisterScreen(props) {
-
     
     const [ name, setName ] = useState('');
     const [ email, setEmail ] = useState('');

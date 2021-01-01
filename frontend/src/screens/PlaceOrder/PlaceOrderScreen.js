@@ -38,7 +38,7 @@ export default function PlaceOrderScreen(props) {
     }, [success, order, props.history, dispatch]);
 
     return (
-        <div className="order__container">
+        <div className="order__container container">
             <CheckoutSteps step1 step2 step3 step4 />
             <div className="order__content row top">
                 <div className="order__left">

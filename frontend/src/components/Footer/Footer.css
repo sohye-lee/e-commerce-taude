@@ -1,12 +1,8 @@
 .footer__container {
     grid-area: footer;
-    height: 80px;
+    height: 70px;
     width: 100%;
-    position: fixed;
-    bottom: 0;
-    left: 0;
     background-color: var(--Black);
     color: var(--White);
-    z-index: 100;
-    margin: 0;
+    margin: 50px 0 0 0;
 }

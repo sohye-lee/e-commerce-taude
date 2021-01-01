@@ -31,7 +31,7 @@ const Cart = (props) => {
     }
 
     return (
-        <div className="cart__container">
+        <div className="cart__container container">
             <Link to="/"><div className="screen__goBack"><span><i className="fa fa-angle-left" /> BACK TO MAIN</span></div></Link>
             <div className="cart__content row top">
                 <div className="cart__items">

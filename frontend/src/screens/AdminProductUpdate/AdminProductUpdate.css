@@ -1,0 +1,12 @@
+.admin__form__box {
+    padding: 2rem 4rem;
+}
+.admin__form label {
+    width: 20%;
+    text-transform: uppercase;
+}
+
+.admin__form input {
+    width: 70%;
+}
+

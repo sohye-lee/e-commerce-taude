@@ -25,7 +25,7 @@ export default function PaymentScreen(props) {
         props.history.push('/placeorder');
     }
     return (
-        <div className="payment__container">
+        <div className="payment__container container">
             <div className="payment__content">
                 <CheckoutSteps step1 step2 step3 />
                 <form onSubmit={handleSubmit} className="payment__form form">

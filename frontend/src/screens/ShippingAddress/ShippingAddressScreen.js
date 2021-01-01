@@ -29,7 +29,7 @@ export default function ShippingAddressScreen(props) {
     };
 
     return (
-        <div className="shipping__container">
+        <div className="shipping__container container">
             <div className="shipping__content">
                 <CheckoutSteps step1 step2 />
                 <form className="shipping__form form" onSubmit={handleSubmit}>
