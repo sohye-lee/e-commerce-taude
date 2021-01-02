@@ -16,7 +16,7 @@ import ProfileScreen from './screens/Profile/ProfileScreen';
 import PrivateRoute from './components/PrivateRoute';
 import AdminRoute from './components/AdminRoute';
 import AdminProductListScreen from './screens/AdminProductList/AdminProductListScreen';
-import AdminProductUpdateScreen from './screens/AdminProductUpdate/AdminProductUpdateScreen';
+import AdminProductEditScreen from './screens/AdminProductEdit/AdminProductEditScreen';
 
 function App() {
 
@@ -26,7 +26,7 @@ function App() {
         <Header />
         <Route path="/cart/:id?" component={CartScreen} />
         <Route path="/product/:id" component={ProductScreen} exact />
-        <Route path="/product/:id/edit" component={AdminProductUpdateScreen} />
+        <Route path="/product/:id/edit" component={AdminProductEditScreen} exact />
         <Route path="/signin" component={SigninScreen} />
         <Route path="/register" component={RegisterScreen} />
         <PrivateRoute path="/profile" component={ProfileScreen} />

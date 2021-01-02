@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { detailsProduct } from '../../actions/productActions';
+import { detailsProduct, updateProduct } from '../../actions/productActions';
 import LoadingBox from '../../components/LoadingBox';
 import MessageBox from '../../components/MessageBox';
-import './AdminProductUpdate.css';
+import { PRODUCT_UPDATE_RESET } from '../../constants/productConstants';
+import './AdminProductEdit.css';
 
-export default function AdminProductUpdateScreen(props) {
+export default function AdminProductEditScreen(props) {
     const productId = props.match.params.id;
 
     const [name, setName] = useState('');
@@ -14,15 +15,27 @@ export default function AdminProductUpdateScreen(props) {
     const [material, setMaterial] = useState('');
     const [color, setColor] = useState('');
     const [description, setDescription] = useState('');
-    const [imageUrl, setImageUrl] = useState(['/images/no-image.jpg'])
+    const [image1, setImage1] = useState(null);
+    const [image2, setImage2] = useState(null);
+    const [image3, setImage3] = useState(null);
+    const [image4, setImage4] = useState(null);
+    const [image5, setImage5] = useState(null);
+    const [imageUrl, setImageUrl] = useState([image1,image2,image3,image4,image5] );
     const [price, setPrice] = useState(0);
     const [countInStock, setCountInStock] = useState(0);
 
     const productDetails = useSelector(state => state.productDetails);
     const { loading, error, product } = productDetails;
+    const productUpdate = useSelector(state => state.productUpdate);
+    const { loading: loadingUpdate, error: errorUpdate, success: successUpdate } = productUpdate;
+
     const dispatch = useDispatch();
     useEffect(() => {
-        if (!product || product._id !== productId) {
+        if(successUpdate) {
+            props.history.push('/productlist');
+        }
+        if (!product || product._id !== productId || successUpdate) {
+            dispatch({ type: PRODUCT_UPDATE_RESET });
             dispatch(detailsProduct(productId));
         } else {
             setName(product.name);
@@ -35,10 +48,22 @@ export default function AdminProductUpdateScreen(props) {
             setPrice(product.price);
             setCountInStock(product.countInStock);
         }
-    }, [dispatch, product, productId]);
+    }, [dispatch, product, productId, props.history, successUpdate]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        dispatch(updateProduct({
+            _id: productId,
+            name, 
+            category, 
+            brand, 
+            material, 
+            color, 
+            description, 
+            imageUrl,
+            price, 
+            countInStock 
+        }));
     }
 
     return (
@@ -46,6 +71,8 @@ export default function AdminProductUpdateScreen(props) {
             <div className="form__content">
                 <form className="form admin__form__box" onSubmit={handleSubmit}>
                     <h1 className="form__title">Edit Product <span style={{fontStyle: 'italic', marginLeft: '1rem'}}>{name}</span></h1>
+                    {loadingUpdate && <LoadingBox />}
+                    {errorUpdate && <MessageBox variant="error">{error}</MessageBox>}
                     {loading ?  <LoadingBox />
                     : error ? <MessageBox variant="error">{error}</MessageBox>
                     : (
@@ -139,17 +166,17 @@ export default function AdminProductUpdateScreen(props) {
                             />
                         </div>
                         <div className="row admin__form">
-                            <label htmlFor="imageUrl">NAME</label>
+                            <label htmlFor="imageUrl">MAIN IMAGE</label>
                             <input 
                                 type="text" 
                                 id="imageUrl" 
-                                placeholder="image" 
+                                placeholder="main image" 
                                 value={imageUrl[0]}
                                 required 
-                                onChange={e=> setImageUrl(e.target.value)} 
+                                onChange={e=> setImage1(e.target.value)} 
                             />
                         </div>
-                            {product.imageUrl.length>1
+                            {/* {product.imageUrl.length>1
                             ? 
                             product.imageUrl.map(
                                 image => (
@@ -161,12 +188,51 @@ export default function AdminProductUpdateScreen(props) {
                                             placeholder="image" 
                                             value={image} 
                                             required 
-                                            // onChange={e=> setImageUrl(e.target.value)} 
+                                            onChange={e=> setImageUrl(imageUrl.push(e.target.value))} 
                                         />
                                     </div>)
                             )
-                            :(<></>)}
-                        
+                            :(<></>)} */}
+                        <div className="row admin__form">
+                            <label htmlFor="image2">DETAIL IMAGE</label>
+                            <input 
+                                type="text" 
+                                id="image2" 
+                                placeholder="detail image" 
+                                value={image2}
+                                onChange={e=> setImage2(e.target.value)} 
+                            />
+                        </div>
+                        <div className="row admin__form">
+                            <label htmlFor="image3">DETAIL IMAGE</label>
+                            <input 
+                                type="text" 
+                                id="image3" 
+                                placeholder="detail image" 
+                                value={image3}
+                                onChange={e=> setImage3(e.target.value)} 
+                            />
+                        </div>
+                        <div className="row admin__form">
+                            <label htmlFor="image4">DETAIL IMAGE</label>
+                            <input 
+                                type="text" 
+                                id="image4" 
+                                placeholder="detail image" 
+                                value={image4}
+                                onChange={e=> setImage4(e.target.value)} 
+                            />
+                        </div>
+                        <div className="row admin__form">
+                            <label htmlFor="image5">DETAIL IMAGE</label>
+                            <input 
+                                type="text" 
+                                id="image5" 
+                                placeholder="detail image" 
+                                value={image5}
+                                onChange={e=> setImage5(e.target.value)} 
+                            />
+                        </div>
                         <button type="submit" className="btn">UPDATE</button>
                     </>
                     )}

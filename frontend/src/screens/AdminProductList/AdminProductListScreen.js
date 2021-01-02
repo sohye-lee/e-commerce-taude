@@ -13,19 +13,19 @@ export default function ProductListScreen(props) {
     const { 
         loading: loadingCreate, 
         error: errorCreate, 
-        succss: successCreate, 
+        success: successCreate, 
         product: createdProduct 
     } = productCreate;
 
     const dispatch = useDispatch();
 
     useEffect(() => {
-        if(successCreate) {
-            dispatch({ type: PRODUCT_CREATE_RESET });
-            props.history.push(`/product/${createdProduct._id}/edit`);
+        if (successCreate) {
+          dispatch({ type: PRODUCT_CREATE_RESET });
+          props.history.push(`/product/${createdProduct._id}/edit`);
         }
-        dispatch(listProducts());
-    }, [dispatch, createdProduct, successCreate, props.history]);
+        dispatch(listProducts());	  
+      }, [createdProduct, dispatch, props.history, successCreate]);
 
     const handleDelete = () => {
         

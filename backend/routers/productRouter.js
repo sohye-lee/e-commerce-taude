@@ -44,7 +44,7 @@ productRouter.post(
       name: 'product'+ Date.now(),
       brand: 'brand',
       category: 'category',
-      imageUrl: ['/images/tote1.jpg'],
+      imageUrl: ['/images/products/tote1.jpg'],
       description: 'description',
       color: 'black',
       material: 'canvas',
@@ -55,6 +55,32 @@ productRouter.post(
     });
     const createdProduct = await product.save();
     res.send({ message: "New Product Created", product: createdProduct });
+  })
+);
+
+productRouter.put(
+  '/:id',
+  isAuth,
+  isAdmin,
+  expressAsyncHandler(async (req, res) => {
+    const productId = req.params.id;
+    const product = await Product.findById(productId);
+    if(product) {
+      product.name = req.body.name;
+      product.category = req.body.category;
+      product.brand = req.body.brand;
+      product.material = req.body.material;
+      product.color = req.body.color;
+      product.description = req.body.description;
+      product.imageUrl = req.body.imageUrl,
+      product.countInStock = req.body.countInStock;
+      product.price = req.body.price;
+    
+      const updatedProduct = await product.save();
+      res.send({ message: 'Product Updated', updatedProduct });
+    } else {
+      res.status(404).send({ message: 'Product Not Found'});
+    }
   })
 );
 
