@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { createProduct, listProducts } from '../../actions/productActions';
+import { createProduct, deleteProduct, listProducts } from '../../actions/productActions';
 import LoadingBox from '../../components/LoadingBox';
 import MessageBox from '../../components/MessageBox';
-import { PRODUCT_CREATE_RESET } from '../../constants/productConstants';
+import { PRODUCT_CREATE_RESET, PRODUCT_DELETE_RESET } from '../../constants/productConstants';
 import './AdminProductList.css';
 
 export default function ProductListScreen(props) {
@@ -16,7 +16,12 @@ export default function ProductListScreen(props) {
         success: successCreate, 
         product: createdProduct 
     } = productCreate;
-
+    const productDelete = useSelector(state => state.productDelete);
+    const { 
+        loading: loadingDelete,
+        error: errorDelete,
+        success: successDelete
+    } = productDelete;
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -24,12 +29,17 @@ export default function ProductListScreen(props) {
           dispatch({ type: PRODUCT_CREATE_RESET });
           props.history.push(`/product/${createdProduct._id}/edit`);
         }
+        if (successDelete) {
+            dispatch({ type: PRODUCT_DELETE_RESET });
+        }
         dispatch(listProducts());	  
-      }, [createdProduct, dispatch, props.history, successCreate]);
+      }, [createdProduct, dispatch, props.history, successCreate, successDelete]);
 
-    const handleDelete = () => {
-        
-    }
+    const handleDelete = (product) => {
+        if (window.confirm(`Are you sure you wish to delete the product ${product.name}?`)) {
+            dispatch(deleteProduct(product._id));
+        }
+    };
 
     const handleCreate = () => {
         dispatch(createProduct());
@@ -42,6 +52,8 @@ export default function ProductListScreen(props) {
                     <h1 className="admin__title">Products</h1>
                     <button className="btn" type="button" onClick={handleCreate}>create product</button>
                 </div>
+                {loadingDelete && <LoadingBox />}
+                {errorDelete && <MessageBox variant="error">{errorDelete}</MessageBox>}
                 {loadingCreate && <LoadingBox />}
                 {errorCreate && <MessageBox variant="error">{errorCreate}</MessageBox>}
                 {loading? <LoadingBox/>:
