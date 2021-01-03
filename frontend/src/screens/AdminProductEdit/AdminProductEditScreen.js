@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
+import Axios from '../../../node_modules/axios/index';
 import { detailsProduct, updateProduct } from '../../actions/productActions';
 import LoadingBox from '../../components/LoadingBox';
 import MessageBox from '../../components/MessageBox';
@@ -15,12 +16,7 @@ export default function AdminProductEditScreen(props) {
     const [material, setMaterial] = useState('');
     const [color, setColor] = useState('');
     const [description, setDescription] = useState('');
-    const [image1, setImage1] = useState(null);
-    const [image2, setImage2] = useState(null);
-    const [image3, setImage3] = useState(null);
-    const [image4, setImage4] = useState(null);
-    const [image5, setImage5] = useState(null);
-    const [imageUrl, setImageUrl] = useState([image1,image2,image3,image4,image5] );
+    const [imageUrl, setImageUrl] = useState([]);
     const [price, setPrice] = useState(0);
     const [countInStock, setCountInStock] = useState(0);
 
@@ -28,6 +24,8 @@ export default function AdminProductEditScreen(props) {
     const { loading, error, product } = productDetails;
     const productUpdate = useSelector(state => state.productUpdate);
     const { loading: loadingUpdate, error: errorUpdate, success: successUpdate } = productUpdate;
+    const userSignin = useSelector(state => state.userSignin);
+    const { userInfo } = userSignin;
 
     const dispatch = useDispatch();
     useEffect(() => {
@@ -50,6 +48,31 @@ export default function AdminProductEditScreen(props) {
         }
     }, [dispatch, product, productId, props.history, successUpdate]);
 
+    const [loadingUpload, setLoadingUpload] = useState(false);
+    const [errorUpload, setErrorUpload] = useState('');
+    const handleUploadFile = async (e) => {
+        const numImages = e.target.files.length;
+        const files = e.target.files ;
+        const bodyFormData = new FormData();
+        for (var i = 0; i<numImages; i++) {
+            bodyFormData.append('image', files[i]);
+        }
+        setLoadingUpload(true);
+        try {
+            const { data } = await Axios.post('/api/uploads', bodyFormData, {
+                headers: { 'Content-Type': 'multipart/form-data',
+                    Authorization: `Bearer ${userInfo.token}`
+                }
+            });
+            console.log(data);
+            setImageUrl(data);
+            setLoadingUpload(false);
+        } catch (error) {
+            setErrorUpload(error.message);
+            setLoadingUpload(false);
+        }
+    };
+
     const handleSubmit = (e) => {
         e.preventDefault();
         dispatch(updateProduct({
@@ -64,7 +87,7 @@ export default function AdminProductEditScreen(props) {
             price, 
             countInStock 
         }));
-    }
+    };
 
     return (
         <div className="form__container">
@@ -166,72 +189,16 @@ export default function AdminProductEditScreen(props) {
                             />
                         </div>
                         <div className="row admin__form">
-                            <label htmlFor="imageUrl">MAIN IMAGE</label>
+                            <label htmlFor="imageFile1">IMAGES</label>
                             <input 
-                                type="text" 
-                                id="imageUrl" 
-                                placeholder="main image" 
-                                value={imageUrl[0]}
-                                required 
-                                onChange={e=> setImage1(e.target.value)} 
+                                type="file" 
+                                id="imageFile1" 
+                                label="CHOOSE IMAGE"
+                                onChange={handleUploadFile} 
+                                multiple
                             />
-                        </div>
-                            {/* {product.imageUrl.length>1
-                            ? 
-                            product.imageUrl.map(
-                                image => (
-                                    <div className="row admin__form">
-                                        <label htmlFor={`imageUrl${product.imageUrl.indexOf(image)}`}></label>
-                                        <input 
-                                            type="text" 
-                                            id={`imageUrl${product.imageUrl.indexOf(image)}`} 
-                                            placeholder="image" 
-                                            value={image} 
-                                            required 
-                                            onChange={e=> setImageUrl(imageUrl.push(e.target.value))} 
-                                        />
-                                    </div>)
-                            )
-                            :(<></>)} */}
-                        <div className="row admin__form">
-                            <label htmlFor="image2">DETAIL IMAGE</label>
-                            <input 
-                                type="text" 
-                                id="image2" 
-                                placeholder="detail image" 
-                                value={image2}
-                                onChange={e=> setImage2(e.target.value)} 
-                            />
-                        </div>
-                        <div className="row admin__form">
-                            <label htmlFor="image3">DETAIL IMAGE</label>
-                            <input 
-                                type="text" 
-                                id="image3" 
-                                placeholder="detail image" 
-                                value={image3}
-                                onChange={e=> setImage3(e.target.value)} 
-                            />
-                        </div>
-                        <div className="row admin__form">
-                            <label htmlFor="image4">DETAIL IMAGE</label>
-                            <input 
-                                type="text" 
-                                id="image4" 
-                                placeholder="detail image" 
-                                value={image4}
-                                onChange={e=> setImage4(e.target.value)} 
-                            />
-                        </div>
-                        <div className="row admin__form">
-                            <label htmlFor="image5">DETAIL IMAGE</label>
-                            <input 
-                                type="text" 
-                                id="image5" 
-                                placeholder="detail image" 
-                                value={image5}
-                                onChange={e=> setImage5(e.target.value)} 
-                            />
+                            {loadingUpload && <LoadingBox />}
+                            {errorUpload && (<MessageBox variant="error">{errorUpload}</MessageBox>)}
                         </div>
                         <button type="submit" className="btn">UPDATE</button>
                     </>
