@@ -17,6 +17,7 @@ import PrivateRoute from './components/PrivateRoute';
 import AdminRoute from './components/AdminRoute';
 import AdminProductListScreen from './screens/AdminProductList/AdminProductListScreen';
 import AdminProductEditScreen from './screens/AdminProductEdit/AdminProductEditScreen';
+import AdminOrderListScreen from './screens/AdminOrderList/AdminOrderListScreen';
 
 function App() {
 
@@ -24,18 +25,19 @@ function App() {
     <BrowserRouter>
       <div className="main__container">
         <Header />
-        <Route path="/cart/:id?" component={CartScreen} />
-        <Route path="/product/:id" component={ProductScreen} exact />
-        <Route path="/product/:id/edit" component={AdminProductEditScreen} exact />
         <Route path="/signin" component={SigninScreen} />
         <Route path="/register" component={RegisterScreen} />
         <PrivateRoute path="/profile" component={ProfileScreen} />
+        <Route path="/product/:id" component={ProductScreen} exact />
+        <Route path="/product/:id/edit" component={AdminProductEditScreen} exact />
+        <Route path="/cart/:id?" component={CartScreen} />
         <Route path="/shipping" component={ShippingAddressScreen} />
         <Route path="/payment" component={PaymentScreen} />
         <Route path="/placeorder" component={PlaceOrderScreen} />
         <Route path="/order/:id" component={OrderScreen} />
         <Route path="/orderhistory" component={OrderHistoryScreen} />
         <AdminRoute path="/productlist" component={AdminProductListScreen} />
+        <AdminRoute path="/orderlist" component={AdminOrderListScreen} />
         <Route path="/" component={HomeScreen} exact />
         <Footer />
       </div> 

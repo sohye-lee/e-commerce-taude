@@ -3,8 +3,10 @@ import thunk from 'redux-thunk';
 import { cartReducer } from './reducers/cartReducers';
 import { 
   orderCreateReducer, 
+  orderDeleteReducer, 
   orderDetailsReducer, 
   orderHistoryReducer, 
+  orderListReducer, 
   orderPayReducer
 } from './reducers/orderReducers';
 import {
@@ -52,7 +54,9 @@ const reducer = combineReducers({
     orderCreate: orderCreateReducer,
     orderDetails: orderDetailsReducer,
     orderPay: orderPayReducer,
-    orderHistory: orderHistoryReducer
+    orderHistory: orderHistoryReducer,
+    orderList: orderListReducer,
+    orderDelete: orderDeleteReducer,
 });
 
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
