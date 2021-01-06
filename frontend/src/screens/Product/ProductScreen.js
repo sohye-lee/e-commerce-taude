@@ -3,10 +3,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import ReactStars from 'react-stars';
 import { detailsProduct } from '../../actions/productActions';
-import { getReviews } from '../../actions/reviewActions';
+import { getReviews, postReview } from '../../actions/reviewActions';
 import LoadingBox from '../../components/LoadingBox';
 import MessageBox from '../../components/MessageBox';
 import Rating from '../../components/Rating';
+import { REVIEW_CREATE_RESET } from '../../constants/reviewConstants';
 import './ProductScreen.css'
 
 export default function ProductScreen(props) {
@@ -18,17 +19,38 @@ export default function ProductScreen(props) {
   const reviewList = useSelector(state => state.reviewList);
   const { loading: loadingReviews, error: errorReviews, success: successReviews, reviews } = reviewList;
   const reviewsToShow = reviews? reviews.filter(review => review.product === productId) : [] ;
+  const userSignin = useSelector(state => state.userSignin);
+  const { userInfo } = userSignin; 
+  const reviewCreate = useSelector(state => state.reviewCreate);
+  const { loading: loadingCreate, error: errorCreate, success: successCreate } = reviewCreate;
   const [ showImageIndex, setShowImageIndex ] = useState(0);
   const numReviews = reviewsToShow ? reviewsToShow.length : 0;
   const rating = reviewsToShow? (reviewsToShow.reduce((a,b) => a + b.rating, 0) / reviewsToShow.length) : 0;
+  const [reviewRating, setReviewRating] = useState(0);
+  const [reviewText, setReviewText] = useState('');
+
 
   useEffect(() => {
+    dispatch({ type: REVIEW_CREATE_RESET });
     dispatch(detailsProduct(productId));
     dispatch(getReviews());
-  }, [dispatch, productId]);
+  }, [dispatch, productId, successCreate]);
 
   const handleAddToCart = () => {
     props.history.push(`/cart/${productId}?qty=${qty}`);
+  };
+
+  const ratingChange = (newRating) => {
+    setReviewRating(newRating);
+  }
+  const handleAddReview = (e) => {
+    e.preventDefault();
+    dispatch(postReview({
+      product: productId,
+      user: userInfo._id,
+      rating: reviewRating,
+      text: reviewText
+    }))
   };
  
   return (
@@ -127,13 +149,41 @@ export default function ProductScreen(props) {
                             />
                             <span > {review.rating}/5</span>
                           </div>
-                          <h5> Reviewed by {review.user.name} on {review.createdAt.substring(5,7)}/{review.createdAt.substring(8,10)}/{review.createdAt.substring(0,4)}</h5>
+                          <h5 style={{fontWeight: "500"}}> Reviewed by {review.user.name} on {review.createdAt.substring(5,7)}/{review.createdAt.substring(8,10)}/{review.createdAt.substring(0,4)}</h5>
                           <h5>{review.text}</h5>
+                          {userInfo._id === review.user._id 
+                          ? (<div className="row left">
+                              <button className="btn small">Edit</button>
+                              <button className="btn small">Delete</button>
+                            </div>)
+                          :<></>}
                         </div>
                       )))
                       : 
-                      (<div></div>)
+                      (<div>No Review</div>)
                       }
+                  </div>
+                  <div className="info__reviews">
+                  {
+                        userInfo 
+                        ? (
+                          <div>
+                            <h3 className="review__title" style={{paddingBottom: "15px", borderBottom: "1px solid var(--Gray)"}}>LEAVE YOUR REVIEW</h3>
+                            <form onSubmit={handleAddReview} className="form__review">
+                              <div className="row">
+                                <ReactStars count={5} onChange={ratingChange} size={20} value={reviewRating} className="review__rating"/>
+                              </div>
+                              <div className="row">
+                                <textarea rows="3" placeholder="Your review" className="review__text" required onChange={(e) => setReviewText(e.target.value)} value={reviewText}/>
+                              </div>
+                              <button type="submit" className="btn small">Add Review</button>
+                            </form>
+                          </div>
+                        )
+                        : (<></>)
+                    }
+                    {loadingCreate && <LoadingBox />}
+                    {errorCreate && <MessageBox variant="error">{errorCreate}</MessageBox>}  
                   </div>
                 </div>
             </div>

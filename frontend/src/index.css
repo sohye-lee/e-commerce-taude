@@ -72,6 +72,10 @@ h1 {
   justify-content: center;
 }
 
+.row.left {
+  justify-content: flex-start;
+}
+
 .row.top {
   align-items: top;
 }

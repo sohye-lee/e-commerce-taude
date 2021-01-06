@@ -29,9 +29,9 @@ reviewRouter.post(
     '/',
     isAuth,
     expressAsyncHandler(async(req, res) => {
-        const review = new Review.create({
-            product: req.product._id,
-            user: req.user._id,
+        const review = new Review({
+            product: req.body.product,
+            user: req.body.user,
             rating: req.body.rating,
             text: req.body.text
         });

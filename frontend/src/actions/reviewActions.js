@@ -23,7 +23,7 @@ export const postReview = (review) => async(dispatch, getState) => {
                 Authorization: `Bearer ${userInfo.token}`
             }
         });
-        dispatch({ type: REVIEW_CREATE_SUCCESS, payload: data });
+        dispatch({ type: REVIEW_CREATE_SUCCESS, payload: data.review });
     } catch (error) {
         const message = error.response && error.response.data.message
             ? error.response.data.message
