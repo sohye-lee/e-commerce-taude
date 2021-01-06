@@ -23,7 +23,7 @@ export default function PlaceOrderScreen(props) {
     cart.itemsPrice = toPrice(cartItems.reduce((a,b) => a + b.qty*b.price, 0));
     cart.shippingFee = cart.itemsPrice > 100 ? toPrice(0) : toPrice(10.90);
     cart.tax = toPrice(cart.itemsPrice * 0.09);
-    cart.total = cart.itemsPrice + cart.shippingFee + cart.tax;
+    cart.total = toPrice(cart.itemsPrice + cart.shippingFee + cart.tax);
 
     const dispatch = useDispatch();
     const handlePlaceOrder = () => {

@@ -38,7 +38,7 @@ export default function OrderHistoryScreen(props) {
                                 <tr key={order._id}>
                                     <td>{order._id}</td>
                                     <td>{order.createdAt.substring(0,10)}</td>
-                                    <td>{order.total.toFixed(2)}</td>
+                                    <td>{order.total}</td>
                                     <td>{order.isPaid? order.paidAt.substring(0,10):'NO'}</td>
                                     <td>{order.isDelivered? order.deliveredAt.substring(0,10):'NO'}</td>
                                     <td>

@@ -60,6 +60,9 @@ export default function Rating(props) {
             }
           ></i>
         </span>
+        <span style={{marginLeft: "5px"}}>
+          {rating? rating.toFixed(1): 0}
+        </span>
       </div>
       <div>{numReviews + ' reviews'}</div>
     </div>

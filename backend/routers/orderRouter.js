@@ -1,9 +1,28 @@
 import express from 'express';
 import expressAsyncHandler from 'express-async-handler';
 import Order from '../models/orderModel.js';
-import { isAuth } from '../utils.js';
+import { isAdmin, isAuth } from '../utils.js';
+import data from '../data.js';
 
 const orderRouter = express.Router();
+
+orderRouter.get('/seed', 
+    expressAsyncHandler(async (req, res) => {
+        // await Order.remove({});
+        const createdOrders = await Order.insertMany(data.orders);
+        res.send({ createdOrders });
+      })
+);
+
+orderRouter.get(
+    '/',
+    isAuth,
+    isAdmin,
+    expressAsyncHandler(async(req, res) => {
+        const orders = await Order.find({}).populate('user', 'name');
+        res.send(orders);
+    })
+);
 
 orderRouter.get(
     '/history',
@@ -50,6 +69,23 @@ orderRouter.get(
 }));
 
 orderRouter.put(
+    '/:id/deliver',
+    isAuth,
+    isAdmin,
+    expressAsyncHandler(async(req, res) => {
+        const order = await Order.findById(req.params.id);
+        if (order) {
+            order.isDelivered = true;
+            order.deliveredAt = Date.now();
+            const deliveredOrder = await order.save();
+            res.send({ message: 'Order Delivered', order: deliveredOrder });
+        } else {
+            res.status(404).send({ message: 'Order Not Found' });
+        }
+    })
+);
+
+orderRouter.put(
     '/:id/pay', 
     isAuth, 
     expressAsyncHandler(async(req, res) => {
@@ -69,7 +105,23 @@ orderRouter.put(
             res.status(404).send({ message: 'Order Not Found' })
         }
     })
-)
+);
+
+orderRouter.delete('/:id',
+    isAuth,
+    isAdmin,
+    expressAsyncHandler(async(req, res) => {
+        const order = await Order.findById(req.params.id);
+        if (order) {
+            const deletedOrder = await order.remove();
+            res.send({ message: 'Order Removed', order: deletedOrder });
+        } else {
+            res.status(404).send({ message: 'Order Not Found' });
+        }
+    })
+);
+
+
 
 
 export default orderRouter;

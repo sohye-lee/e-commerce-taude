@@ -103,26 +103,82 @@ const data = {
             name: 'sohyelee',
             password: bcrypt.hashSync('8458',8),
             email: 'sohyelee@gmail.com',
-            firstname: 'So Hye',
-            lastname: 'Lee',
             isAdmin: true,
-            // isSeller: false,    
         },
         {
             name: 'chloe',
             password: bcrypt.hashSync('8458',8),
             email: 'sohyellcofficial@gmail.com',
             isAdmin: true,
-            // isSeller: true,
         },
         {
             name: 'jjay',
             password: bcrypt.hashSync('8458',8),
             email: 'dragonriderkim0419gmail.com',
             isAdmin: false,
-            // isSeller: true,
         }
+    ],
+    orders: [
+        {
+            orderItems: [{
+                name: 'Black Dot',
+                qty: 1,
+                image:  "/uploads/1609701848186.jpg",
+                price: 125.9,
+                product: "5ff39e5ff676bf28ade400bb"
+                
+            }],
+            shippingAddress: {
+                fullname: "Sohye",
+                street: "123 Street",
+                city: "Fairfax",
+                stateName: "VA",
+                zip: "22031",
+                country: "United States",
+            },
+            paymentMethod: "PayPal",
+            paymentResult: {
+                id: "123",
+                status: "Paid",
+                update_time: "2021-01-04 23:01:51.973Z",
+                email_address: "sohyelee@gmail.com" 
+            },
+            itemsPrice: 125.9,
+            shippingFee: 0,
+            tax: 11.33,
+            total: 137.23,
+            user: "5fe412bd794dc61cedb4f7ca",
+            isPaid: true,
+            paidAt: "2021-01-04 23:01:51.973Z",
+            isDelivered: false,
+            deliveredAt: null,
+        }
+    ],
+    reviews: [
+        {
+            user: "5fe412bd794dc61cedb4f7ca",
+            product: "5fee9530b7413a5c863cc856",
+            text: "I love this bag!",
+            rating: 5,
+            createdAt: "2020-05-13 23:01:51.973Z"
+        },
+        {
+            user: "5fe412bd794dc61cedb4f7ca",
+            product: "5fee9530b7413a5c863cc856",
+            text: "I wish it had more pockets.",
+            rating: 4.5,
+            createdAt: "2020-12-16 11:01:51.973Z"
+        },
+        {
+            user: "5fe412bd794dc61cedb4f7ca",
+            product: "5fee9530b7413a5c863cc856",
+            text: "Great bag for office",
+            rating: 4.7,
+            createdAt: "2021-01-04 23:01:51.973Z"
+        },
     ]
 };
+
+
 
 export default data;
