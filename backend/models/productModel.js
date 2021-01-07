@@ -34,14 +34,14 @@ const productSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
-    rating: {
-        type: Number,
-        required: true
-    },
-    numReviews: {
-        type: Number,
-        required: true
-    },
+    // rating: {
+    //     type: Number,
+    //     required: true
+    // },
+    // numReviews: {
+    //     type: Number,
+    //     required: true
+    // },
     countInStock: {
         type: Number,
         required: true

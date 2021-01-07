@@ -40,4 +40,35 @@ reviewRouter.post(
     })
 );
 
+reviewRouter.put(
+    '/:id',
+    isAuth,
+    expressAsyncHandler(async(req, res) => {
+        const review = await Review.findById(req.body._id);
+        if (review) {
+            review.rating = req.body.rating;
+            review.text =req.body.text;
+
+            const updatedReview = await review.save();
+            res.send({ message: 'Review Updated', updatedReview });
+        } else {
+            res.status(404).send({ message: 'Review Not Found' });
+        }
+    })
+);
+
+reviewRouter.delete(
+    '/:id',
+    isAuth,
+    expressAsyncHandler(async(req, res) => {
+        const review = await Review.findById(req.params.id);
+        if (review) {
+            const deletedReview = await review.remove();
+            res.send({ message: 'Review has been successfully deleted', review: deletedReview })
+        } else {
+            res.status(404).send({ message: 'Review Not Found' });
+        }
+    })
+);
+
 export default reviewRouter;

@@ -11,8 +11,6 @@ const data = {
             color: "pink",
             material: "canvas",
             price: 20.90,
-            rating: 5,
-            numReviews: 10,
             countInStock: 20
         },
         {
@@ -24,8 +22,6 @@ const data = {
             color: "black",
             material: "leather",
             price: 45.90,
-            rating: 4.5,
-            numReviews: 23,
             countInStock: 20
         },
         {
@@ -37,8 +33,6 @@ const data = {
             color: "white",
             material: "leather",
             price: 62.90,
-            rating: 3.8,
-            numReviews: 5,
             countInStock: 0
         },
         {
@@ -50,8 +44,6 @@ const data = {
             color: "white",
             material: "canvas",
             price: 34.50,
-            rating: 5,
-            numReviews: 18,
             countInStock: 1
         },
         {
@@ -63,8 +55,6 @@ const data = {
             color: "blue",
             material: "canvas",
             price: 18.90,
-            rating: 5,
-            numReviews: 45,
             countInStock: 10
         },
         {
@@ -76,8 +66,6 @@ const data = {
             color: "yellow",
             material: "canvas",
             price: 109.80,
-            rating: 4.9,
-            numReviews: 33,
             countInStock: 3
         },
     ],
