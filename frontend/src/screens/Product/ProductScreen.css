@@ -118,12 +118,30 @@
     font-size: 1.8rem;
     background-color: var(--Gray);
     color: var(--White);
+    font-family: 'Ubuntu', sans-serif;
     margin: 0 5px 5px 5px;
+    padding: 7px;
 }
 
 .review__text::placeholder {
     color: var(--White) ;
     font-family: 'Ubuntu', sans-serif;
+}
+
+.modal__container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0,0,0,.3);
+}
+
+.modal.form {
+    min-height: 300px !important;
 }
 
 @media all and (max-width: 1024px) {

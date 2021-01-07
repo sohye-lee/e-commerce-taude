@@ -63,7 +63,7 @@ const Header = () => {
                     {
                         userInfo && userInfo.isAdmin && (
                             <div className="header__dropdown">
-                            <Link to="#admin" className="header__login" ><i className="fa fa-line-chart" style={{marginRight: '8px'}}/>Admin<i className="fa fa-caret-down"/></Link>
+                            <Link to="#admin" className="header__login" ><i className="fa fa-line-chart" style={{marginRight: '8px'}}/> Admin <i className="fa fa-caret-down"/></Link>
                             <ul className="dropdown__content" >
                                 <li>
                                     <Link to="/dashboard">

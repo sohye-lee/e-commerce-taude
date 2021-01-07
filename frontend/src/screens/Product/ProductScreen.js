@@ -3,12 +3,45 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import ReactStars from 'react-stars';
 import { detailsProduct } from '../../actions/productActions';
-import { getReviews, postReview } from '../../actions/reviewActions';
+import { deleteReview, editReview, getReviews, postReview } from '../../actions/reviewActions';
 import LoadingBox from '../../components/LoadingBox';
 import MessageBox from '../../components/MessageBox';
 import Rating from '../../components/Rating';
-import { REVIEW_CREATE_RESET } from '../../constants/reviewConstants';
+import { REVIEW_CREATE_RESET, REVIEW_EDIT_RESET } from '../../constants/reviewConstants';
 import './ProductScreen.css'
+
+function ReviewEditModal ({review}) {
+  const [rating, setRating] = useState(review? review.rating: 0);
+  const [text, setText] = useState(review? review.text: '');
+
+  const dispatch = useDispatch();
+  const handleSubmit = () => {
+    dispatch(editReview({
+      _id: review._id,
+      rating,
+      text
+    }))
+  };
+  return (
+    <div className="modal__container" >
+      <form className="modal form" onSubmit={handleSubmit}>
+        <div className="form__review">
+          <h3 className="review__title">Edit Review</h3>
+          <div className="row">
+            <ReactStars value={review.rating} size={22} count={5} onChange={e => setRating(e.target.value)}/>
+          </div>
+          <div className="row">
+            <textarea className="review__text" value={text} rows="3" onChange={e => setText(e.target.value)}/>
+          </div>
+          <div className="row left">
+            <button className="btn small" type="submit">update</button>
+            <button className="btn small">cancel</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  )
+}
 
 export default function ProductScreen(props) {
   const dispatch = useDispatch();
@@ -23,18 +56,26 @@ export default function ProductScreen(props) {
   const { userInfo } = userSignin; 
   const reviewCreate = useSelector(state => state.reviewCreate);
   const { loading: loadingCreate, error: errorCreate, success: successCreate } = reviewCreate;
+  const reviewEdit = useSelector(state => state.reviewEdit);
+  const { success: successEdit } = reviewEdit;
+  const reviewDelete = useSelector(state => state.reviewDelete);
+  const { success: successDelete } = reviewDelete;
+
   const [ showImageIndex, setShowImageIndex ] = useState(0);
   const numReviews = reviewsToShow ? reviewsToShow.length : 0;
   const rating = reviewsToShow? (reviewsToShow.reduce((a,b) => a + b.rating, 0) / reviewsToShow.length) : 0;
   const [reviewRating, setReviewRating] = useState(0);
   const [reviewText, setReviewText] = useState('');
-
+  const [modalShow, setModalShow] = useState(false);
+  const [reviewToEdit, setReviewToEdit] = useState('');
+  // const [reviewToDelete, setReviewToDelete] = useState('');
 
   useEffect(() => {
     dispatch({ type: REVIEW_CREATE_RESET });
+    dispatch({ type: REVIEW_EDIT_RESET });
     dispatch(detailsProduct(productId));
     dispatch(getReviews());
-  }, [dispatch, productId, successCreate]);
+  }, [dispatch, productId, successCreate, successEdit, successDelete]);
 
   const handleAddToCart = () => {
     props.history.push(`/cart/${productId}?qty=${qty}`);
@@ -52,7 +93,14 @@ export default function ProductScreen(props) {
       text: reviewText
     }))
   };
- 
+
+  const handleDeleteReview = (review) => {
+    if (window.confirm('Are you sure you wish to delete the review?')) {
+      console.log(review._id);
+      dispatch(deleteReview(review._id));
+    }
+  };
+
   return (
     <div className="info__container container">
       <Link to="/"><div className="screen__goBack"><span><i className="fa fa-angle-left" /> BACK TO MAIN</span></div></Link>
@@ -151,41 +199,49 @@ export default function ProductScreen(props) {
                           </div>
                           <h5 style={{fontWeight: "500"}}> Reviewed by {review.user.name} on {review.createdAt.substring(5,7)}/{review.createdAt.substring(8,10)}/{review.createdAt.substring(0,4)}</h5>
                           <h5>{review.text}</h5>
-                          {userInfo._id === review.user._id 
+                          { userInfo && userInfo._id === review.user._id 
                           ? (<div className="row left">
-                              <button className="btn small">Edit</button>
-                              <button className="btn small">Delete</button>
+                              <button className="btn small" onClick={() => {
+                                setModalShow(true); 
+                                setReviewToEdit(review._id);
+                                }}>Edit</button>
+                              <button className="btn small" onClick={() => handleDeleteReview(review)}>Delete</button>
                             </div>)
                           :<></>}
+                          
                         </div>
                       )))
                       : 
                       (<div>No Review</div>)
                       }
+                      {modalShow && (
+                            <ReviewEditModal review={reviews.filter(review => review._id === reviewToEdit)[0]}/>
+                      )}
                   </div>
-                  <div className="info__reviews">
                   {
-                        userInfo 
-                        ? (
-                          <div>
-                            <h3 className="review__title" style={{paddingBottom: "15px", borderBottom: "1px solid var(--Gray)"}}>LEAVE YOUR REVIEW</h3>
-                            <form onSubmit={handleAddReview} className="form__review">
-                              <div className="row">
-                                <ReactStars count={5} onChange={ratingChange} size={20} value={reviewRating} className="review__rating"/>
-                              </div>
-                              <div className="row">
-                                <textarea rows="3" placeholder="Your review" className="review__text" required onChange={(e) => setReviewText(e.target.value)} value={reviewText}/>
-                              </div>
-                              <button type="submit" className="btn small">Add Review</button>
-                            </form>
-                          </div>
-                        )
-                        : (<></>)
+                    userInfo 
+                    ? (
+                      <div className="info__reviews">
+                        <div>
+                          <h3 className="review__title" style={{paddingBottom: "15px", borderBottom: "1px solid var(--Gray)"}}>LEAVE YOUR REVIEW</h3>
+                          <form onSubmit={handleAddReview} className="form__review">
+                            <div className="row">
+                              <ReactStars count={5} onChange={ratingChange} size={20} value={reviewRating} className="review__rating"/>
+                            </div>
+                            <div className="row">
+                              <textarea rows="3" placeholder="Your review" className="review__text" required onChange={(e) => setReviewText(e.target.value)} value={reviewText}/>
+                            </div>
+                            <button type="submit" className="btn small">Add Review</button>
+                          </form>
+                        </div>
+                      </div>
+                    )
+                    : (<></>)
                     }
                     {loadingCreate && <LoadingBox />}
                     {errorCreate && <MessageBox variant="error">{errorCreate}</MessageBox>}  
-                  </div>
                 </div>
+                
             </div>
       )}
     </div>
