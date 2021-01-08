@@ -7,8 +7,6 @@ import MessageBox from '../../components/MessageBox';
 import './SigninScreen.css';
 
 export default function SigninScreen(props) {
-
-    
     const [ email, setEmail ] = useState('');
     const [ password, setPassword ] = useState('');
     const redirect = props.location.search

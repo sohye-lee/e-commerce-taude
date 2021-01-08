@@ -37,7 +37,6 @@ export default function UserScreen(props) {
         } else {
             dispatch(userProfileUpdate({ userId: user._id, name, email, password}))
         }
-
     };
 
     return (

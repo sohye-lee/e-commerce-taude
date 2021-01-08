@@ -2,12 +2,12 @@
   "name": "taude",
   "type": "module",
   "version": "1.0.0",
-  "description": "E-commerce website",
+  "description": "E-commerce website project",
   "main": "index.js",
   "scripts": {
     "start": "nodemon --watch backend --exec node --experimental-modules backend/server.js"
   },
-  "author": "",
+  "author": "Sohye Lee",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/basir/amazona/issues"

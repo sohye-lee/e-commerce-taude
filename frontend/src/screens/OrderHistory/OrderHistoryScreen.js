@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { Link } from 'react-router-dom';
 import { listOrderHistory } from '../../actions/orderActions';
 import LoadingBox from '../../components/LoadingBox';
 import MessageBox from '../../components/MessageBox';
@@ -16,6 +17,7 @@ export default function OrderHistoryScreen(props) {
 
     return (
         <div className="order__container container">
+            <Link to="/"><div className="screen__goBack"><span><i className="fa fa-angle-left" /> BACK TO MAIN</span></div></Link>
             <div className="order__content">
                 <h1 className="order__title">Order History</h1>
                 {loading? <LoadingBox/>:
@@ -38,7 +40,7 @@ export default function OrderHistoryScreen(props) {
                                 <tr key={order._id}>
                                     <td className="table__id">{order._id}</td>
                                     <td>{order.createdAt.substring(0,10)}</td>
-                                    <td>{order.total}</td>
+                                    <td>${order.total}</td>
                                     <td>{order.isPaid? order.paidAt.substring(0,10):'NO'}</td>
                                     <td>{order.isDelivered? order.deliveredAt.substring(0,10):'NO'}</td>
                                     <td>

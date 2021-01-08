@@ -33,7 +33,7 @@ export default function AdminDashboard() {
         <div className="info__container container">
             <div className="admin__content">
                 <div className="admin__header">
-                    <h1 className="admin__title">Dashboard</h1>
+                    <h1 className="order__title">Dashboard</h1>
                 </div>
                 <div className="dashboard__content">
                     <div className="dashboard__box">
