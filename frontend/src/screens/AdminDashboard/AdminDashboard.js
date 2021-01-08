@@ -49,7 +49,7 @@ export default function AdminDashboard() {
                                     </div>
                                     <div className="box__item row">
                                         <h3>NEW CUSTOMERS</h3>
-                                        <h3>{users? users.filter(user => user.updatedAt.substring(0,7) === todayMonth).length: 0}</h3>
+                                        <h3>{users? users.filter(user => user.createdAt.substring(0,7) === todayMonth).length: 0}</h3>
                                     </div>
                                     <div className="box__item row">
                                         <h3>TOTAL REVIEWS</h3>
@@ -78,7 +78,7 @@ export default function AdminDashboard() {
                                     </div>
                                     <div className="box__item row">
                                         <h3>TOTAL SELLING</h3>
-                                        <h3>${orders? orders.reduce((a,b)=> a + b.total, 0) : 0}</h3>
+                                        <h3>${orders? orders.reduce((a,b)=> a + b.total, 0).toFixed(2) : 0}</h3>
                                     </div>
                                     <div className="box__item row">
                                         <h3>ORDER PAID</h3>
@@ -114,7 +114,7 @@ export default function AdminDashboard() {
                                     </div>
                                     <div className="box__item row">
                                         <h3>NEW PRODUCTS</h3>
-                                        <h3>{products? products.filter(product => product.updatedAt.substring(0,7) === todayMonth).length: 0}</h3> 
+                                        <h3>{products? products.filter(product => product.createdAt.substring(0,7) === todayMonth).length: 0}</h3> 
                                     </div>
                                 </>
                             )}
