@@ -1,8 +1,15 @@
 .footer__container {
-    grid-area: footer;
     height: 70px;
     width: 100%;
     background-color: var(--Black);
     color: var(--White);
     margin: 50px 0 0 0;
+    display: flex;
+    align-items: center;
 }
+
+.footer__content {
+    width: 100%;
+    text-align: center;
+}
+

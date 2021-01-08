@@ -4,7 +4,6 @@ import { userGetProfile, userProfileUpdate } from '../../actions/userActions.js'
 import LoadingBox from '../../components/LoadingBox';
 import MessageBox from '../../components/MessageBox';
 import { USER_UPDATE_RESET } from '../../constants/userConstants.js';
-import './Profile.css';
 
 export default function UserScreen(props) {
     const [name, setName] = useState('');

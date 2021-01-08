@@ -3,7 +3,7 @@ import expressAsyncHandler from 'express-async-handler';
 import bcrypt from 'bcryptjs';
 import data from '../data.js';
 import User from '../models/userModel.js';
-import { generateToken, isAuth } from '../utils.js';
+import { generateToken, isAdmin, isAuth } from '../utils.js';
 
 const userRouter = express.Router();
 
@@ -13,6 +13,16 @@ userRouter.get(
     // await User.remove({});
     const createdUsers = await User.insertMany(data.users);
     res.send({ createdUsers });
+  })
+);
+
+userRouter.get(
+  '/',
+  isAuth,
+  isAdmin,
+  expressAsyncHandler(async (req, res) => {
+    const users = await User.find({});
+    res.send(users);
   })
 );
 
@@ -88,6 +98,21 @@ userRouter.put(
         token: generateToken(updatedUser),
       });
     } 
+  })
+);
+
+userRouter.delete(
+  '/:id',
+  isAuth,
+  isAdmin,
+  expressAsyncHandler(async(req, res) => {
+    const user = await User.findById(req.params.id);
+    if (user) {
+      const deletedUser = await user.remove();
+      res.send({ message: 'User Deleted', user: deletedUser })
+    } else {
+      res.status(404).send({ message: 'User Not Found' });
+    }
   })
 );
 

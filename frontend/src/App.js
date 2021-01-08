@@ -18,6 +18,8 @@ import AdminRoute from './components/AdminRoute';
 import AdminProductListScreen from './screens/AdminProductList/AdminProductListScreen';
 import AdminProductEditScreen from './screens/AdminProductEdit/AdminProductEditScreen';
 import AdminOrderListScreen from './screens/AdminOrderList/AdminOrderListScreen';
+import AdminDashboard from './screens/AdminDashboard/AdminDashboard';
+import AdminUserListScreen from './screens/AdminUserList/AdminUserListScreen';
 
 function App() {
 
@@ -38,6 +40,8 @@ function App() {
         <Route path="/orderhistory" component={OrderHistoryScreen} />
         <AdminRoute path="/productlist" component={AdminProductListScreen} />
         <AdminRoute path="/orderlist" component={AdminOrderListScreen} />
+        <AdminRoute path="/userlist" component={AdminUserListScreen} />
+        <AdminRoute path="/dashboard" component={AdminDashboard} />
         <Route path="/" component={HomeScreen} exact />
         <Footer />
       </div> 

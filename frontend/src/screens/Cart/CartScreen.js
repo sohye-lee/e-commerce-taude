@@ -64,7 +64,7 @@ const Cart = (props) => {
                                 </button>
                             </div>
                         ))
-                        : (<MessageBox> Your Cart Is Empty. <Link to="/" style={{color:'var(--White)', padding: '3px 5px', backgroundColor: 'var(--Black)'}}> Click To Go Back To Shopping</Link></MessageBox>)}
+                        : (<MessageBox> Your Cart Is Empty. <Link to="/" style={{textDecoration:"none", color:"var(--Blue)"}}> <span style={{textDecoration: "underline"}}>Click</span> To Go Back To Shopping</Link></MessageBox>)}
                     
                 </div>
                 <div className="cart__action">

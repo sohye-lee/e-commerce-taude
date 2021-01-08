@@ -11,7 +11,7 @@ function ProductList({products}) {
                 product={product}
             />
         ))
-    }
+    };
 
     return (
         <div className="productList__container">
@@ -19,7 +19,7 @@ function ProductList({products}) {
         </div>
     );
 
-}
+};
 
 
 export default ProductList;

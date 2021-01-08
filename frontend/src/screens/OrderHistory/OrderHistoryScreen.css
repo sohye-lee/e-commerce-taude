@@ -12,6 +12,7 @@
     border: 1px solid var(--Gray) !important;
     padding: 1rem;
 }
+
 .table tr:nth-of-type(odd) {
     background-color: var(--Gray);
 }

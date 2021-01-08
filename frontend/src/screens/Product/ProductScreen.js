@@ -68,7 +68,6 @@ export default function ProductScreen(props) {
   const [reviewText, setReviewText] = useState('');
   const [modalShow, setModalShow] = useState(false);
   const [reviewToEdit, setReviewToEdit] = useState('');
-  // const [reviewToDelete, setReviewToDelete] = useState('');
 
   useEffect(() => {
     dispatch({ type: REVIEW_CREATE_RESET });

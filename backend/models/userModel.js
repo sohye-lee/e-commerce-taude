@@ -20,15 +20,6 @@ const userSchema = new mongoose.Schema(
             default: false,
             required: true
         },
-        // isSeller: {
-        //     type: Boolean,
-        //     default: false,
-        //     required: true
-        // },
-        // sellerId: {
-        //     type: Number,
-        //     required: false
-        // }
     }, 
     {
         timestamps: true

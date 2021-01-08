@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import Axios from '../../../node_modules/axios/index';
 import { detailsProduct, updateProduct } from '../../actions/productActions';
+import { PRODUCT_UPDATE_RESET } from '../../constants/productConstants';
 import LoadingBox from '../../components/LoadingBox';
 import MessageBox from '../../components/MessageBox';
-import { PRODUCT_UPDATE_RESET } from '../../constants/productConstants';
 import './AdminProductEdit.css';
 
 export default function AdminProductEditScreen(props) {

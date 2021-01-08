@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { deleteOrder, listOrders } from '../../actions/orderActions';
 import LoadingBox from '../../components/LoadingBox';
 import MessageBox from '../../components/MessageBox';
 import { ORDER_DELETE_RESET } from '../../constants/orderConstants';
-import './AdminOrderList.css';
 
 export default function AdminOrderListScreen(props) {
     const orderList = useSelector(state => state.orderList);
@@ -26,9 +26,10 @@ export default function AdminOrderListScreen(props) {
 
     return (
         <div className="admin__container container">
+            <Link to="/dashboard"><div className="screen__goBack"><span><i className="fa fa-angle-left" /> BACK TO DASHBOARD</span></div></Link>
             <div className="admin__content">
                 <div className="admin__header row">
-                    <h1 className="admin__title">Orders</h1>
+                    <h1 className="order__title">Orders</h1>
                 </div>
                 {loadingDelete && <LoadingBox />}
                 {errorDelete && <MessageBox variant="error">{errorDelete}</MessageBox>}
@@ -39,7 +40,7 @@ export default function AdminOrderListScreen(props) {
                     <table className='table'>
                         <thead>
                             <tr>
-                                <th>ID</th>
+                                <th className="table__id">ID</th>
                                 <th>CUSTOMER</th>
                                 <th>DATE</th>
                                 <th>TOTAL</th>
@@ -51,7 +52,7 @@ export default function AdminOrderListScreen(props) {
                         <tbody>
                             {orders.map((order) => (
                                 <tr key={order._id}>
-                                    <td>{order._id}</td>
+                                    <td className="table__id">{order._id}</td>
                                     <td>{order.user.name}</td>
                                     <td>{order.createdAt}</td>
                                     <td>${order.total.toFixed(2)}</td>
