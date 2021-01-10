@@ -6,7 +6,8 @@
   "main": "index.js",
   "scripts": {
     "build": "cd frontend && npm install && npm run build",
-    "start": "node backend/server.js"
+    "start": "nodemon --watch backend --exec node --experimental-modules backend/server.js"
+
   },
   "repository": {
     "type": "git",
