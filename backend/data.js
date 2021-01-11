@@ -72,18 +72,18 @@ const data = {
     sellers: [
         {
             _id: 0,
-            name: "B_Bags",
-            email: "bbags@gmail.com"
+            name: "Sohye Lee",
+            email: "sohyelee@gmail.com",
         },
         {
             _id: 1,
-            name: "J.J.",
-            email: "jjbags@gmail.com"
+            name: "Noah",
+            email: "noah@gmail.com",
         },
         {
             _id: 2,
-            name: "K. Patty",
-            email: "kpatty@gmail.com"
+            name: "Chloe",
+            email: "Chloe@gmail.com",
         },
     ],
     users: [
