@@ -64,7 +64,7 @@ export const register = (name, email, password) => async(dispatch) => {
                 : error.message,
         })
     }
-};
+}; 
 
 export const userGetProfile = (userId) => async(dispatch, getState) => {
     dispatch({ type: USER_PROFILE_REQUEST, payload: userId });
